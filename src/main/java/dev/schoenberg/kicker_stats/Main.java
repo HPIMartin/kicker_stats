@@ -15,6 +15,7 @@ public class Main {
 	public static int PORT = 8080;
 
 	public static void main(String[] args) {
+		// String url = "jdbc:sqlite:" + System.getProperty("user.dir").replace("\\", "/") + "/temp.db";
 		services.add(new VersionService());
 
 		try (JettyServer server = serverFactory.create(PORT, services)) {
