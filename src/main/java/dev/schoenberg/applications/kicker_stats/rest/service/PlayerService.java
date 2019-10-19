@@ -23,6 +23,6 @@ public class PlayerService implements Service {
 	@GET
 	@Produces(APPLICATION_JSON)
 	public PlayersDto getPlayers() {
-
+		return new PlayersDto();
 	}
 }
