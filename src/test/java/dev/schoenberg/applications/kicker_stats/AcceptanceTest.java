@@ -8,11 +8,13 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import dev.schoenberg.applications.kicker_stats.rest.HookedServer;
 import dev.schoenberg.applications.kicker_stats.rest.Service;
 import kong.unirest.Unirest;
 
+@Category(ServerTest.class)
 public class AcceptanceTest {
 	private static HookedServer server;
 	private static String baseUrl = "http://localhost:" + Main.PORT;

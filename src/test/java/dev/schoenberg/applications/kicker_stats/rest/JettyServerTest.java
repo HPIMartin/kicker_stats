@@ -12,10 +12,12 @@ import javax.ws.rs.core.MediaType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-import dev.schoenberg.applications.kicker_stats.rest.Service;
+import dev.schoenberg.applications.kicker_stats.ServerTest;
 import kong.unirest.Unirest;
 
+@Category(ServerTest.class)
 public class JettyServerTest {
 	public final static int PORT = 8080;
 
