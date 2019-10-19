@@ -44,7 +44,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>dev.schoenberg.applications.lendico.Main</mainClass>
+									<mainClass>dev.schoenberg.kicker_stats.Main</mainClass>
 								</transformer>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">

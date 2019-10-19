@@ -1,4 +1,4 @@
-package dev.schoenberg.applications.kicker_stats.rest;
+package dev.schoenberg.kicker_stats.rest;
 
 import java.io.Closeable;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package dev.schoenberg.applications.kicker_stats.rest.dto;
+package dev.schoenberg.kicker_stats.rest.dto;
 
 import java.util.List;
 

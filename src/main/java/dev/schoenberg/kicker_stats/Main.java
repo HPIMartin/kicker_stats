@@ -1,12 +1,12 @@
-package dev.schoenberg.applications.kicker_stats;
+package dev.schoenberg.kicker_stats;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.schoenberg.applications.kicker_stats.rest.JettyServer;
-import dev.schoenberg.applications.kicker_stats.rest.Service;
-import dev.schoenberg.applications.kicker_stats.rest.service.VersionService;
+import dev.schoenberg.kicker_stats.rest.JettyServer;
+import dev.schoenberg.kicker_stats.rest.Service;
+import dev.schoenberg.kicker_stats.rest.service.VersionService;
 
 public class Main {
 	private static List<Service> services = new ArrayList<>();

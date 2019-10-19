@@ -1,10 +1,10 @@
-package dev.schoenberg.applications.kicker_stats.rest;
+package dev.schoenberg.kicker_stats.rest;
 
 import java.io.IOException;
 import java.util.List;
 
-import dev.schoenberg.applications.kicker_stats.rest.JettyServer;
-import dev.schoenberg.applications.kicker_stats.rest.Service;
+import dev.schoenberg.kicker_stats.rest.JettyServer;
+import dev.schoenberg.kicker_stats.rest.Service;
 
 public class HookedServer extends JettyServer {
 	public boolean closeServer = true;

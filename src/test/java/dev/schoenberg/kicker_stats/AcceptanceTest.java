@@ -1,4 +1,4 @@
-package dev.schoenberg.applications.kicker_stats;
+package dev.schoenberg.kicker_stats;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -10,8 +10,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import dev.schoenberg.applications.kicker_stats.rest.HookedServer;
-import dev.schoenberg.applications.kicker_stats.rest.Service;
+import dev.schoenberg.kicker_stats.rest.HookedServer;
+import dev.schoenberg.kicker_stats.rest.Service;
 import kong.unirest.Unirest;
 
 @Category(ServerTest.class)
