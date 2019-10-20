@@ -48,4 +48,18 @@ public class AcceptanceTest {
 		String content = Unirest.get(baseUrl + "/version").asString().getBody();
 		assertThat(content).isNotBlank();
 	}
+
+	@Test
+	public void resourceCanBeRequested() throws IOException, URISyntaxException {
+		String expected = loadResourceFile("subfolder/fileInSubfolder.css");
+
+		String content = Unirest.get(baseUrl + "/resources/subfolder/fileInSubfolder.css").asString().getBody();
+
+		assertThat(content).isEqualTo(expected);
+	}
+
+	private String loadResourceFile(String resourcePath) throws URISyntaxException, IOException {
+		Path path = Paths.get(getClass().getClassLoader().getResource(resourcePath).toURI());
+		return String.join(lineSeparator(), Files.readAllLines(path));
+	}
 }
