@@ -20,8 +20,6 @@ public class Main {
 
 		try (JettyServer server = serverFactory.create(PORT, services)) {
 			server.run();
-		} catch (IOException e) {
-			new RuntimeException("Unable to close server", e);
 		}
 	}
 

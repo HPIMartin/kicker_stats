@@ -1,7 +1,8 @@
 package dev.schoenberg.kicker_stats.rest;
 
+import static dev.schoenberg.kicker_stats.exceptionWrapper.ExceptionWrapper.*;
+
 import java.io.Closeable;
-import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.jetty.server.Server;
@@ -36,25 +37,17 @@ public class JettyServer implements Closeable {
 	}
 
 	public void run() {
-		try {
-			server.start();
-			waitForTermination();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		silentThrow(server::start);
+		this.waitForTermination();
 	}
 
-	protected void waitForTermination() throws InterruptedException {
-		server.join();
+	protected void waitForTermination() {
+		silentThrow(server::join);
 	}
 
 	@Override
-	public void close() throws IOException {
-		try {
-			server.stop();
-		} catch (Exception e) {
-			throw new IOException(e);
-		}
+	public void close() {
+		silentThrow(server::stop);
 		server.destroy();
 	}
 }

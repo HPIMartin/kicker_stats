@@ -1,10 +1,6 @@
 package dev.schoenberg.kicker_stats.rest;
 
-import java.io.IOException;
 import java.util.List;
-
-import dev.schoenberg.kicker_stats.rest.JettyServer;
-import dev.schoenberg.kicker_stats.rest.Service;
 
 public class HookedServer extends JettyServer {
 	public boolean closeServer = true;
@@ -19,7 +15,7 @@ public class HookedServer extends JettyServer {
 	}
 
 	@Override
-	protected void waitForTermination() throws InterruptedException {
+	protected void waitForTermination() {
 		started = true;
 		super.waitForTermination();
 	}
@@ -47,13 +43,12 @@ public class HookedServer extends JettyServer {
 					throw startUpProblem;
 				}
 			}
-		} catch (InterruptedException e) {
-		}
+		} catch (InterruptedException e) {}
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void close() throws IOException {
+	public void close() {
 		if (closeServer) {
 			super.close();
 			serverThread.stop();
