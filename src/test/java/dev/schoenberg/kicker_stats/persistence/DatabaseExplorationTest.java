@@ -1,4 +1,4 @@
-package dev.schoenberg.kicker_stats;
+package dev.schoenberg.kicker_stats.persistence;
 
 import static dev.schoenberg.kicker_stats.persistence.service.DaoRepository.*;
 import static java.nio.file.Files.*;
@@ -15,11 +15,13 @@ import java.util.UUID;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 
+import dev.schoenberg.kicker_stats.PersistenceTest;
 import dev.schoenberg.kicker_stats.persistence.entity.event.EventEntity;
 import dev.schoenberg.kicker_stats.persistence.entity.match.MatchEntity;
 import dev.schoenberg.kicker_stats.persistence.entity.match.MatchTeamEntity;
@@ -28,6 +30,7 @@ import dev.schoenberg.kicker_stats.persistence.entity.player.PlayerEntity;
 import dev.schoenberg.kicker_stats.persistence.service.DaoRepository;
 import dev.schoenberg.kicker_stats.persistence.service.TableInitializer;
 
+@Category(PersistenceTest.class)
 public class DatabaseExplorationTest {
 	private static String url;
 	private static Path tempDir;
