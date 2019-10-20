@@ -1,11 +1,15 @@
 package dev.schoenberg.kicker_stats.helper;
 
-import java.io.File;
-
-import dev.schoenberg.kicker_stats.Main;
+import java.io.InputStream;
 
 public class SimpleResourceLoader {
-	public File loadFromResources(String filePath) {
-		return new File(Main.class.getClassLoader().getResource(filePath).getFile());
+	public InputStream loadFromResources(String filePath) {
+		InputStream resource = getClass().getClassLoader().getResourceAsStream(filePath);
+
+		if (resource == null) {
+			throw new RuntimeException("Resource not found");
+		}
+
+		return resource;
 	}
 }

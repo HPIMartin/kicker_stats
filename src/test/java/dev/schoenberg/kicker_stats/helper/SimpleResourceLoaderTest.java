@@ -2,18 +2,28 @@ package dev.schoenberg.kicker_stats.helper;
 
 import static org.assertj.core.api.Assertions.*;
 
-import java.io.File;
+import java.io.InputStream;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class SimpleResourceLoaderTest {
+	private SimpleResourceLoader tested;
+
+	@Before
+	public void setup() {
+		tested = new SimpleResourceLoader();
+	}
+
 	@Test
 	public void loadsResource() {
-		SimpleResourceLoader tested = new SimpleResourceLoader();
+		InputStream result = tested.loadFromResources("tmp.txt");
 
-		File result = tested.loadFromResources("tmp.txt");
-
-		assertThat(result).exists();
 		assertThat(result).hasContent("Hello, world!");
+	}
+
+	@Test
+	public void throwsExceptionIfResourceDoesNotExist() {
+		assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> tested.loadFromResources("iDoNotExist.file"));
 	}
 }
