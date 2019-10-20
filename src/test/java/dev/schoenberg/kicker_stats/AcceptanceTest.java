@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import dev.schoenberg.kicker_stats.rest.HookedServer;
-import dev.schoenberg.kicker_stats.rest.Service;
+import dev.schoenberg.kicker_stats.rest.ServerService;
 import kong.unirest.Unirest;
 
 @Category({ ServerTest.class, PersistenceTest.class })
@@ -30,7 +30,7 @@ public class AcceptanceTest {
 		Main.main(new String[0]);
 	}
 
-	private static HookedServer createHooked(int p, List<Service> s) {
+	private static HookedServer createHooked(int p, List<ServerService> s) {
 		server = new HookedServer(p, s);
 		server.closeServer = false;
 		server.run();

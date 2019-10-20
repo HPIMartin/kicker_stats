@@ -1,4 +1,4 @@
-package dev.schoenberg.kicker_stats.rest.service;
+package dev.schoenberg.kicker_stats.rest.controller;
 
 import static dev.schoenberg.kicker_stats.exceptionWrapper.ExceptionWrapper.*;
 import static java.nio.file.Files.*;
@@ -17,10 +17,10 @@ import javax.ws.rs.core.Response;
 
 import org.apache.tika.Tika;
 
-import dev.schoenberg.kicker_stats.rest.Service;
+import dev.schoenberg.kicker_stats.rest.ServerService;
 
 @Path("/resources")
-public class ResourceService implements Service {
+public class ResourceController implements ServerService {
 	private static final String PATH_PARAM_RESOURCE_PATH = "path";
 
 	private final ResourceLoader resourceLoader;
@@ -28,7 +28,7 @@ public class ResourceService implements Service {
 
 	private java.nio.file.Path tempFolder;
 
-	public ResourceService(ResourceLoader resourceLoader) {
+	public ResourceController(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
 		tika = new Tika();
 	}

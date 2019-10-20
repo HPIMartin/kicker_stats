@@ -1,4 +1,4 @@
-package dev.schoenberg.kicker_stats.persistence.service;
+package dev.schoenberg.kicker_stats.persistence.helper;
 
 import static com.j256.ormlite.dao.DaoManager.*;
 

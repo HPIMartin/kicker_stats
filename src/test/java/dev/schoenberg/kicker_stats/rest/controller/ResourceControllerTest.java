@@ -1,4 +1,4 @@
-package dev.schoenberg.kicker_stats.rest.service;
+package dev.schoenberg.kicker_stats.rest.controller;
 
 import static dev.schoenberg.kicker_stats.exceptionWrapper.ExceptionWrapper.*;
 import static javax.ws.rs.core.HttpHeaders.*;
@@ -16,17 +16,18 @@ import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.Before;
 import org.junit.Test;
 
-import dev.schoenberg.kicker_stats.rest.service.ResourceService.ResourceLoader;
+import dev.schoenberg.kicker_stats.rest.controller.ResourceController;
+import dev.schoenberg.kicker_stats.rest.controller.ResourceController.ResourceLoader;
 
-public class ResourceServiceTest {
+public class ResourceControllerTest {
 
-	private ResourceService tested;
+	private ResourceController tested;
 	private TestResourceLoader loader;
 
 	@Before
 	public void setUp() {
 		loader = new TestResourceLoader();
-		tested = new ResourceService(loader);
+		tested = new ResourceController(loader);
 	}
 
 	@Test

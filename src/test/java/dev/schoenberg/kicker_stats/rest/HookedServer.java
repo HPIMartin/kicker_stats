@@ -9,7 +9,7 @@ public class HookedServer extends JettyServer {
 	private RuntimeException startUpProblem;
 	private Thread serverThread;
 
-	public HookedServer(int port, List<Service> services) {
+	public HookedServer(int port, List<ServerService> services) {
 		super(port, services);
 		started = false;
 	}

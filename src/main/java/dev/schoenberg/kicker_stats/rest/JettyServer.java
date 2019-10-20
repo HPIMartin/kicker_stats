@@ -15,22 +15,22 @@ import org.glassfish.jersey.servlet.ServletContainer;
 public class JettyServer implements Closeable {
 	private final Server server;
 
-	public JettyServer(int port, List<Service> services) {
+	public JettyServer(int port, List<ServerService> services) {
 		server = new Server(port);
 		server.setHandler(createContext(services));
 	}
 
-	private ServletContextHandler createContext(List<Service> services) {
+	private ServletContextHandler createContext(List<ServerService> services) {
 		ServletContextHandler result = new ServletContextHandler();
 		result.setContextPath("");
 		result.addServlet(new ServletHolder(new ServletContainer(createResourceConfig(services))), "/*");
 		return result;
 	}
 
-	private ResourceConfig createResourceConfig(List<Service> services) {
+	private ResourceConfig createResourceConfig(List<ServerService> services) {
 		ResourceConfig result = new ResourceConfig();
 		result.register(MoxyJsonFeature.class);
-		for (Service s : services) {
+		for (ServerService s : services) {
 			result.register(s);
 		}
 		return result;

@@ -1,6 +1,6 @@
 package dev.schoenberg.kicker_stats.persistence;
 
-import static dev.schoenberg.kicker_stats.persistence.service.DaoRepository.*;
+import static dev.schoenberg.kicker_stats.persistence.helper.DaoRepository.*;
 import static java.nio.file.Files.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -27,8 +27,8 @@ import dev.schoenberg.kicker_stats.persistence.entity.match.MatchEntity;
 import dev.schoenberg.kicker_stats.persistence.entity.match.MatchTeamEntity;
 import dev.schoenberg.kicker_stats.persistence.entity.match.MatchTeamPlayerEntity;
 import dev.schoenberg.kicker_stats.persistence.entity.player.PlayerEntity;
-import dev.schoenberg.kicker_stats.persistence.service.DaoRepository;
-import dev.schoenberg.kicker_stats.persistence.service.TableInitializer;
+import dev.schoenberg.kicker_stats.persistence.helper.DaoRepository;
+import dev.schoenberg.kicker_stats.persistence.helper.TableInitializer;
 
 @Category(PersistenceTest.class)
 public class DatabaseExplorationTest {

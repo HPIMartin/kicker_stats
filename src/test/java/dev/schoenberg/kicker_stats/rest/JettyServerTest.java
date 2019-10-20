@@ -41,7 +41,7 @@ public class JettyServerTest {
 	}
 
 	@Path("")
-	public static class TestServlet implements Service {
+	public static class TestServlet implements ServerService {
 		@GET
 		@Path("/test")
 		@Produces(MediaType.TEXT_PLAIN)
