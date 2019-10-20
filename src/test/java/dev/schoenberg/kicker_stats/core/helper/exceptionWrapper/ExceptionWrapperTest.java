@@ -1,6 +1,6 @@
-package dev.schoenberg.kicker_stats.exceptionWrapper;
+package dev.schoenberg.kicker_stats.core.helper.exceptionWrapper;
 
-import static dev.schoenberg.kicker_stats.exceptionWrapper.ExceptionWrapper.*;
+import static dev.schoenberg.kicker_stats.core.helper.exceptionWrapper.ExceptionWrapper.*;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.Test;

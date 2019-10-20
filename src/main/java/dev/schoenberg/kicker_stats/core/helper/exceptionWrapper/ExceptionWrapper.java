@@ -1,4 +1,4 @@
-package dev.schoenberg.kicker_stats.exceptionWrapper;
+package dev.schoenberg.kicker_stats.core.helper.exceptionWrapper;
 
 public class ExceptionWrapper {
 

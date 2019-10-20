@@ -1,4 +1,4 @@
-package dev.schoenberg.kicker_stats.helper;
+package dev.schoenberg.kicker_stats.core.helper;
 
 import java.io.InputStream;
 

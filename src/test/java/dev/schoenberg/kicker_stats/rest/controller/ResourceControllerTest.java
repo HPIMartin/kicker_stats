@@ -1,6 +1,6 @@
 package dev.schoenberg.kicker_stats.rest.controller;
 
-import static dev.schoenberg.kicker_stats.exceptionWrapper.ExceptionWrapper.*;
+import static dev.schoenberg.kicker_stats.core.helper.exceptionWrapper.ExceptionWrapper.*;
 import static javax.ws.rs.core.HttpHeaders.*;
 import static org.assertj.core.api.Assertions.*;
 

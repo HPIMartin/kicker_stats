@@ -7,6 +7,8 @@ import java.io.InputStream;
 import org.junit.Before;
 import org.junit.Test;
 
+import dev.schoenberg.kicker_stats.core.helper.SimpleResourceLoader;
+
 public class SimpleResourceLoaderTest {
 	private SimpleResourceLoader tested;
 

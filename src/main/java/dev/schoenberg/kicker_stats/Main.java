@@ -3,7 +3,7 @@ package dev.schoenberg.kicker_stats;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.schoenberg.kicker_stats.helper.SimpleResourceLoader;
+import dev.schoenberg.kicker_stats.core.helper.SimpleResourceLoader;
 import dev.schoenberg.kicker_stats.rest.JettyServer;
 import dev.schoenberg.kicker_stats.rest.ServerService;
 import dev.schoenberg.kicker_stats.rest.controller.ResourceController;
