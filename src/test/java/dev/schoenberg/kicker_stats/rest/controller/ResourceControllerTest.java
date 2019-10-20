@@ -34,7 +34,7 @@ public class ResourceControllerTest {
 	public void returns404IfCouldNotBeLoaded() {
 		loader.toThrow = new RuntimeException();
 
-		ThrowingCallable act = () -> tested.version("iDoNotExist");
+		ThrowingCallable act = () -> tested.getResource("iDoNotExist");
 
 		assertThatExceptionOfType(NotFoundException.class).isThrownBy(act);
 	}
@@ -43,7 +43,7 @@ public class ResourceControllerTest {
 	public void returnStatusIs200() throws IOException {
 		setupFile("file", ".tmp");
 
-		Response result = tested.version("file.tmp");
+		Response result = tested.getResource("file.tmp");
 
 		assertThat(result.getStatus()).isEqualTo(200);
 	}
@@ -52,7 +52,7 @@ public class ResourceControllerTest {
 	public void mimeTypeForCss() throws IOException {
 		setupFile("tmp", ".css");
 
-		Response result = tested.version("tmp.css");
+		Response result = tested.getResource("tmp.css");
 
 		assertThat(result.getHeaderString(CONTENT_TYPE)).isEqualTo("text/css");
 	}
@@ -61,7 +61,7 @@ public class ResourceControllerTest {
 	public void mimeTypeForHtml() throws IOException {
 		setupFile("tmp", ".html");
 
-		Response result = tested.version("tmp.html");
+		Response result = tested.getResource("tmp.html");
 
 		assertThat(result.getHeaderString(CONTENT_TYPE)).isEqualTo("text/html");
 	}
@@ -70,7 +70,7 @@ public class ResourceControllerTest {
 	public void mimeTypeForJS() throws IOException {
 		setupFile("tmp", ".js");
 
-		Response result = tested.version("tmp.js");
+		Response result = tested.getResource("tmp.js");
 
 		assertThat(result.getHeaderString(CONTENT_TYPE)).isEqualTo("application/javascript");
 	}

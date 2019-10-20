@@ -35,7 +35,7 @@ public class ResourceController implements ServerService {
 
 	@GET
 	@Path("/{" + PATH_PARAM_RESOURCE_PATH + " : (.+)?}")
-	public Response version(@PathParam(PATH_PARAM_RESOURCE_PATH) String path) {
+	public Response getResource(@PathParam(PATH_PARAM_RESOURCE_PATH) String path) {
 		// TODO: write test
 		if (path.isEmpty()) {
 			path = "index.html";
