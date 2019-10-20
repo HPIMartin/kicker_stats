@@ -8,6 +8,13 @@ public class PlayerDto {
 	@XmlElement(name = "name")
 	public String name;
 
-	@XmlElement(name = "score")
-	public int score;
+	@XmlElement(name = "email")
+	public String email;
+
+	protected PlayerDto() {}
+
+	public PlayerDto(String name, String email) {
+		this.name = name;
+		this.email = email;
+	}
 }

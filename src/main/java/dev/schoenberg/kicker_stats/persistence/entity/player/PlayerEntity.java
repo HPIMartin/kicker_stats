@@ -10,22 +10,13 @@ public class PlayerEntity extends AbstractEntity {
 	@Column(name = "name")
 	public String name;
 
+	@Column(name = "email")
+	public String email;
+
 	protected PlayerEntity() {}
 
-	public PlayerEntity(String name) {
+	public PlayerEntity(String name, String email) {
 		this.name = name;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof PlayerEntity)) {
-			return false;
-		}
-		return name.equals(((PlayerEntity) o).name);
-	}
-
-	@Override
-	public int hashCode() {
-		return name.hashCode();
+		this.email = email;
 	}
 }

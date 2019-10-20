@@ -76,10 +76,10 @@ public class DatabaseExplorationTest {
 	}
 
 	private UUID writeMatchExample(String winningPlayer1, String winningPlayer2, String losingPlayer1, String losingPlayer2) throws SQLException {
-		PlayerEntity winner1 = playerDao.createIfNotExists(new PlayerEntity(winningPlayer1));
-		PlayerEntity winner2 = playerDao.createIfNotExists(new PlayerEntity(winningPlayer2));
-		PlayerEntity loser1 = playerDao.createIfNotExists(new PlayerEntity(losingPlayer1));
-		PlayerEntity loser2 = playerDao.createIfNotExists(new PlayerEntity(losingPlayer2));
+		PlayerEntity winner1 = playerDao.createIfNotExists(new PlayerEntity(winningPlayer1, ""));
+		PlayerEntity winner2 = playerDao.createIfNotExists(new PlayerEntity(winningPlayer2, ""));
+		PlayerEntity loser1 = playerDao.createIfNotExists(new PlayerEntity(losingPlayer1, ""));
+		PlayerEntity loser2 = playerDao.createIfNotExists(new PlayerEntity(losingPlayer2, ""));
 
 		MatchTeamEntity team1 = matchTeamDao.createIfNotExists(new MatchTeamEntity());
 		MatchTeamEntity team2 = matchTeamDao.createIfNotExists(new MatchTeamEntity());

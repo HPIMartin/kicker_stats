@@ -7,4 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class NewPlayerDto {
 	@XmlElement(name = "name")
 	public String name;
+
+	@XmlElement(name = "email")
+	public String email;
 }

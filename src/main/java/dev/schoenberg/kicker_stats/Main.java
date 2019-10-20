@@ -1,11 +1,21 @@
 package dev.schoenberg.kicker_stats;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.support.ConnectionSource;
+
 import dev.schoenberg.kicker_stats.core.helper.SimpleResourceLoader;
+import dev.schoenberg.kicker_stats.core.service.PlayerService;
+import dev.schoenberg.kicker_stats.persistence.helper.DaoRepository;
+import dev.schoenberg.kicker_stats.persistence.helper.TableInitializer;
+import dev.schoenberg.kicker_stats.persistence.repository.PlayerOrmLiteRepository;
 import dev.schoenberg.kicker_stats.rest.JettyServer;
 import dev.schoenberg.kicker_stats.rest.ServerService;
+import dev.schoenberg.kicker_stats.rest.controller.PlayerController;
 import dev.schoenberg.kicker_stats.rest.controller.ResourceController;
 import dev.schoenberg.kicker_stats.rest.controller.VersionController;
 
@@ -14,13 +24,16 @@ public class Main {
 
 	public static ServerFactory serverFactory = JettyServer::new;
 	public static int PORT = 8080;
+	public static String url = "jdbc:sqlite:" + System.getProperty("user.dir").replace("\\", "/") + "/kickerStats.db";
 
-	public static void main(String[] args) {
-		// String url = "jdbc:sqlite:" + System.getProperty("user.dir").replace("\\", "/") + "/temp.db";
+	public static void main(String[] args) throws IOException, SQLException {
 		services.add(new VersionController());
 		services.add(new ResourceController(new SimpleResourceLoader()::loadFromResources));
+		services.add(new PlayerController(new PlayerService(new PlayerOrmLiteRepository())));
 
-		try (JettyServer server = serverFactory.create(PORT, services)) {
+		try (JettyServer server = serverFactory.create(PORT, services); ConnectionSource connection = new JdbcConnectionSource(url)) {
+			TableInitializer.init(connection);
+			DaoRepository.initDaos(connection);
 			server.run();
 		}
 	}

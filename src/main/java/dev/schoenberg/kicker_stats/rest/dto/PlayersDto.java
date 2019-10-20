@@ -9,4 +9,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class PlayersDto {
 	@XmlElement(name = "players")
 	public List<PlayerDto> players;
+
+	protected PlayersDto() {}
+
+	public PlayersDto(List<PlayerDto> players) {
+		this.players = players;
+	}
 }
