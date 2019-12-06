@@ -1,0 +1,36 @@
+@startuml
+
+skinparam Monochrome true
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+left to right direction
+
+hide circle
+'hide empty members
+
+entity "Tournament" as tournament
+entity "Team" as team
+entity "Team Player" as teamPlayer
+entity "Player" as player
+entity "Match Team Player" as matchTeamPlayer
+entity "Match Team" as matchTeam
+entity "Match" as match
+entity "Season" as season
+
+' Zero or One 	|o--
+' Exactly One 	||--
+' Zero or Many 	}o--
+' One or Many 	}|--
+team ||--|{ teamPlayer
+teamPlayer }o--|| player
+player ||--o{ matchTeamPlayer
+matchTeamPlayer }|--|| matchTeam
+' winning team
+matchTeam ||--|| match : winner
+' losing team
+matchTeam ||--|| match : loser
+season ||--o{ match
+tournament |o--o{ match
+
+@enduml
