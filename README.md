@@ -11,6 +11,9 @@
 | Season | A finite period of time where states are calculated and updated. |
 | Leader | Administrator of a party configuring the party. A party could have several leaders, but needs to have at least one. | 
 
+## Database draft
+![database draft](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/HPIMartin/kicker_stats/master/doc/database.puml)
+
 ## Open Tasks
 * Record Game Result
     * 2on2
