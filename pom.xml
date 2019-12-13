@@ -129,6 +129,12 @@
 			<version>${ormlite.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>6.0.7</version>
+		</dependency>
+
 		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
