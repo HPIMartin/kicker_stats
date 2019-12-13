@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="style/style.css">
+		<script src = "js/main.js"> </script>
 	</head>
-	<body>
-
+	<body onload="fetchPlayers();">
 		<h1>Welcome to the TST (Table Soccer Tracker)</h1>
 		<p>In the next days / weeks / months, a small platform will be created here to record results and classify players according to their strength.</p>
 		<p>Who wants to contribute to the development is always welcome. <a href=https://github.com/HPIMartin/kicker_stats>Here</a> is the link to the repository.</p>
 
+		<p>
+			<h2>Team 1</h2>
+			<select multiple="multiple" id="selectTeam1"></select>
+			<input type="number" id="scoreTeam1" />
+		</p>
+
+		<p>
+			<h2>Team 2</h2>
+			<select multiple="multiple" id="selectTeam2"></select>
+			<input type="number" id="scoreTeam2" />
+		</p>
+
+		<button id="submit-score" onClick="submitScore();" >Submit</button>
 	</body>
 </html>
