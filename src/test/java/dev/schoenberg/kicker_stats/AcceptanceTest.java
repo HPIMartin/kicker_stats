@@ -36,7 +36,6 @@ public class AcceptanceTest {
 		tempDb = createTempDatabase();
 		Main.url = "jdbc:sqlite:" + tempDb.toString().replace("\\", "/");
 		Main.main(new String[0]);
-		// Thread.sleep(1000);
 	}
 
 	private static Path createTempDatabase() throws IOException {
@@ -54,7 +53,6 @@ public class AcceptanceTest {
 	private static HookedServer createHooked(int p, List<ServerService> s) {
 		server = new HookedServer(p, s);
 		server.closeServer = false;
-		server.run();
 		return server;
 	}
 
@@ -79,11 +77,6 @@ public class AcceptanceTest {
 		assertThat(content).isEqualTo(expected);
 	}
 
-	private String loadResourceFile(String resourcePath) throws URISyntaxException, IOException {
-		Path path = Paths.get(getClass().getClassLoader().getResource(resourcePath).toURI());
-		return String.join(lineSeparator(), Files.readAllLines(path));
-	}
-
 	@Test
 	public void playerIsCreated() {
 		String body = "{\"name\":\"Aaron Rodgers\", \"email\":\"houdini@packers.com\"}";
@@ -91,6 +84,11 @@ public class AcceptanceTest {
 
 		String response = get("/players");
 		assertThat(response).isEqualTo("{\"players\":[{\"name\":\"Aaron Rodgers\",\"email\":\"houdini@packers.com\"}]}");
+	}
+
+	private String loadResourceFile(String resourcePath) throws URISyntaxException, IOException {
+		Path path = Paths.get(getClass().getClassLoader().getResource(resourcePath).toURI());
+		return String.join(lineSeparator(), Files.readAllLines(path));
 	}
 
 	private String get(String subUrl) {
