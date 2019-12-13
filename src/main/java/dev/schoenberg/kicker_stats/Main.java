@@ -18,6 +18,7 @@ import dev.schoenberg.kicker_stats.rest.ServerService;
 import dev.schoenberg.kicker_stats.rest.controller.PlayerController;
 import dev.schoenberg.kicker_stats.rest.controller.ResourceController;
 import dev.schoenberg.kicker_stats.rest.controller.VersionController;
+import dev.schoenberg.kicker_stats.rest.filters.CORSFilter;
 
 public class Main {
 	private static List<ServerService> services = new ArrayList<>();
@@ -27,6 +28,7 @@ public class Main {
 	public static String url = "jdbc:sqlite:" + System.getProperty("user.dir").replace("\\", "/") + "/kickerStats.db";
 
 	public static void main(String[] args) throws IOException, SQLException {
+		services.add(new CORSFilter());
 		services.add(new VersionController());
 		services.add(new ResourceController(new SimpleResourceLoader()::loadFromResources));
 		services.add(new PlayerController(new PlayerService(new PlayerOrmLiteRepository())));
