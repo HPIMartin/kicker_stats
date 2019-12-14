@@ -54,7 +54,7 @@ public class DatabaseExplorationTest {
 		String winningPlayer1 = "Max";
 		String winningPlayer2 = "Martin";
 		String losingPlayer1 = "Schmil";
-		String losingPlayer2 = "Öle";
+		String losingPlayer2 = "Ã–le";
 		UUID matchId;
 
 		try (ConnectionSource connectionSource = new JdbcConnectionSource(url)) {
