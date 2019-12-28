@@ -29,20 +29,22 @@ public class Main {
 	public static String url = "jdbc:sqlite:" + System.getProperty("user.dir").replace("\\", "/") + "/kickerStats.db";
 
 	public static void main(String[] args) throws IOException, SQLException {
+		PlayerService players = new PlayerService(new PlayerOrmLiteRepository());
+
 		services.add(new CORSFilter());
+
 		services.add(new VersionController());
 		services.add(new ResourceController(new SimpleResourceLoader()::loadFromResources));
-		services.add(new PlayerController(new PlayerService(new PlayerOrmLiteRepository())));
+		services.add(new PlayerController(players));
 
 		try (JettyServer server = serverFactory.create(PORT, services); ConnectionSource connection = new JdbcConnectionSource(url)) {
-			Flyway flyway = Flyway.configure().dataSource(url, null, null).load();
-			flyway.migrate();
-
+			Flyway.configure().dataSource(url, null, null).load().migrate();
 			DaoRepository.initDaos(connection);
 			server.run();
 		}
 	}
 
+	@FunctionalInterface
 	public interface ServerFactory {
 		JettyServer create(int port, List<ServerService> services);
 	}
