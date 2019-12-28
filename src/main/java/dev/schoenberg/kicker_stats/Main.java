@@ -24,6 +24,8 @@ import dev.schoenberg.kicker_stats.rest.ServerService;
 import dev.schoenberg.kicker_stats.rest.controller.PlayerController;
 import dev.schoenberg.kicker_stats.rest.controller.ResourceController;
 import dev.schoenberg.kicker_stats.rest.controller.VersionController;
+import dev.schoenberg.kicker_stats.rest.exceptionMapper.AuthenticationFailedExceptionWrapper;
+import dev.schoenberg.kicker_stats.rest.exceptionMapper.NotFoundExceptionWrapper;
 import dev.schoenberg.kicker_stats.rest.filters.AuthenticationFilter;
 import dev.schoenberg.kicker_stats.rest.filters.CORSFilter;
 import io.jsonwebtoken.security.Keys;
@@ -42,6 +44,9 @@ public class Main {
 
 		services.add(new CORSFilter());
 		services.add(new AuthenticationFilter(auth::checkAuth));
+
+		services.add(new NotFoundExceptionWrapper());
+		services.add(new AuthenticationFailedExceptionWrapper());
 
 		services.add(new VersionController());
 		services.add(new ResourceController(new SimpleResourceLoader()::loadFromResources));
