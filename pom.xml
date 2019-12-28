@@ -68,6 +68,7 @@
 		<jpa.version>2.2.1</jpa.version>
 		<sqlLite.version>3.28.0</sqlLite.version>
 		<ormlite.version>5.1</ormlite.version>
+		<jwt.version>0.10.7</jwt.version>
 	</properties>
 
 	<dependencies>
@@ -133,6 +134,22 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 			<version>6.0.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${jwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${jwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${jwt.version}</version>
 		</dependency>
 
 		<!-- Test Dependencies -->
