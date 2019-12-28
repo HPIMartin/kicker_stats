@@ -20,4 +20,8 @@ public class PlayerService {
 	public List<Player> getPlayers() {
 		return repo.getPlayers();
 	}
+
+	public Player getByMail(String mail) {
+		return repo.byMail(mail);
+	}
 }

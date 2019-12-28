@@ -7,10 +7,12 @@ import dev.schoenberg.kicker_stats.persistence.entity.AbstractEntity;
 
 @Entity(name = "players")
 public class PlayerEntity extends AbstractEntity {
+	public static final String EMAIL_COLUMN = "email";
+
 	@Column(name = "name")
 	public String name;
 
-	@Column(name = "email")
+	@Column(name = EMAIL_COLUMN)
 	public String email;
 
 	protected PlayerEntity() {}

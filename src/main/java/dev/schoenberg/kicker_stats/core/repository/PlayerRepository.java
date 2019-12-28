@@ -8,4 +8,6 @@ public interface PlayerRepository {
 	void create(Player player);
 
 	List<Player> getPlayers();
+
+	Player byMail(String mail);
 }
