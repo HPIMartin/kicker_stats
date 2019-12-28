@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -34,6 +35,7 @@ public class ResourceController implements ServerService {
 	}
 
 	@GET
+	@PermitAll
 	@Path("/{" + PATH_PARAM_RESOURCE_PATH + " : (.+)?}")
 	public Response getResource(@PathParam(PATH_PARAM_RESOURCE_PATH) String path) {
 		// TODO: write test

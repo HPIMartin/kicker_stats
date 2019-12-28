@@ -5,6 +5,7 @@ import static javax.ws.rs.core.MediaType.*;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -27,12 +28,14 @@ public class PlayerController implements ServerService {
 	}
 
 	@POST
+	@PermitAll
 	@Consumes(APPLICATION_JSON)
 	public void createPlayer(NewPlayerDto newPlayerDto) {
 		service.createPlayer(newPlayerDto.name, newPlayerDto.email);
 	}
 
 	@GET
+	@PermitAll
 	@Produces(APPLICATION_JSON)
 	public PlayersDto getPlayers() {
 		List<Player> players = service.getPlayers();
@@ -44,6 +47,6 @@ public class PlayerController implements ServerService {
 	}
 
 	private PlayerDto convert(Player player) {
-		return new PlayerDto(player.name, player.email);
+		return new PlayerDto(player.name, player.mail);
 	}
 }

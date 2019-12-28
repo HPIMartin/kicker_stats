@@ -1,7 +1,11 @@
 package dev.schoenberg.kicker_stats;
 
+import static io.jsonwebtoken.SignatureAlgorithm.*;
+
 import java.io.IOException;
+import java.security.Key;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +15,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 
 import dev.schoenberg.kicker_stats.core.helper.SimpleResourceLoader;
+import dev.schoenberg.kicker_stats.core.service.JWTAuthenticationService;
 import dev.schoenberg.kicker_stats.core.service.PlayerService;
 import dev.schoenberg.kicker_stats.persistence.helper.DaoRepository;
 import dev.schoenberg.kicker_stats.persistence.repository.PlayerOrmLiteRepository;
@@ -19,7 +24,9 @@ import dev.schoenberg.kicker_stats.rest.ServerService;
 import dev.schoenberg.kicker_stats.rest.controller.PlayerController;
 import dev.schoenberg.kicker_stats.rest.controller.ResourceController;
 import dev.schoenberg.kicker_stats.rest.controller.VersionController;
+import dev.schoenberg.kicker_stats.rest.filters.AuthenticationFilter;
 import dev.schoenberg.kicker_stats.rest.filters.CORSFilter;
+import io.jsonwebtoken.security.Keys;
 
 public class Main {
 	private static List<ServerService> services = new ArrayList<>();
@@ -30,8 +37,11 @@ public class Main {
 
 	public static void main(String[] args) throws IOException, SQLException {
 		PlayerService players = new PlayerService(new PlayerOrmLiteRepository());
+		Key key = Keys.secretKeyFor(HS512);
+		JWTAuthenticationService auth = new JWTAuthenticationService(players::getByMail, key, Instant::now);
 
 		services.add(new CORSFilter());
+		services.add(new AuthenticationFilter(auth::checkAuth));
 
 		services.add(new VersionController());
 		services.add(new ResourceController(new SimpleResourceLoader()::loadFromResources));
