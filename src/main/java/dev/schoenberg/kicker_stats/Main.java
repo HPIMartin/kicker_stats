@@ -21,6 +21,7 @@ import dev.schoenberg.kicker_stats.persistence.helper.DaoRepository;
 import dev.schoenberg.kicker_stats.persistence.repository.PlayerOrmLiteRepository;
 import dev.schoenberg.kicker_stats.rest.JettyServer;
 import dev.schoenberg.kicker_stats.rest.ServerService;
+import dev.schoenberg.kicker_stats.rest.controller.AuthenticationController;
 import dev.schoenberg.kicker_stats.rest.controller.PlayerController;
 import dev.schoenberg.kicker_stats.rest.controller.ResourceController;
 import dev.schoenberg.kicker_stats.rest.controller.VersionController;
@@ -48,6 +49,7 @@ public class Main {
 		services.add(new NotFoundExceptionWrapper());
 		services.add(new AuthenticationFailedExceptionWrapper());
 
+		services.add(new AuthenticationController(auth));
 		services.add(new VersionController());
 		services.add(new ResourceController(new SimpleResourceLoader()::loadFromResources));
 		services.add(new PlayerController(players));
