@@ -27,11 +27,11 @@ public class PlayerOrmLiteRepository implements PlayerRepository {
 
 	@Override
 	public Player byMail(String mail) {
-		List<PlayerEntity> players = silentThrow(() -> DaoRepository.playerDao.queryForEq(EMAIL_COLUMN, mail));
+		List<PlayerEntity> players = silentThrow(() -> DaoRepository.playerDao.queryForEq(MAIL_COLUMN, mail));
 		return convert(players.stream().findAny().orElseThrow(NotFoundException::new));
 	}
 
 	private Player convert(PlayerEntity entity) {
-		return new Player(entity.name, entity.email);
+		return new Player(entity.name, entity.mail);
 	}
 }
