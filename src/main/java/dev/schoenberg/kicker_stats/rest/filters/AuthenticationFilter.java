@@ -2,6 +2,7 @@ package dev.schoenberg.kicker_stats.rest.filters;
 
 import static dev.schoenberg.kicker_stats.rest.Roles.*;
 import static java.util.Arrays.*;
+import static javax.ws.rs.core.HttpHeaders.*;
 import static javax.ws.rs.core.Response.*;
 import static javax.ws.rs.core.Response.Status.*;
 
@@ -23,8 +24,6 @@ import dev.schoenberg.kicker_stats.core.domain.Player;
 import dev.schoenberg.kicker_stats.rest.ServerService;
 
 public class AuthenticationFilter implements ContainerRequestFilter, ServerService {
-	private static final String AUTHORIZATION_PROPERTY = "Authorization";
-
 	private final Function<String, Player> playerByAuth;
 
 	private @Context ResourceInfo resourceInfo;
@@ -53,7 +52,7 @@ public class AuthenticationFilter implements ContainerRequestFilter, ServerServi
 	}
 
 	private List<String> getAuthHeaders(ContainerRequestContext requestContext) {
-		return requestContext.getHeaders().get(AUTHORIZATION_PROPERTY);
+		return requestContext.getHeaders().get(AUTHORIZATION);
 	}
 
 	private boolean evaluateRole(List<String> authorization, Method method) {

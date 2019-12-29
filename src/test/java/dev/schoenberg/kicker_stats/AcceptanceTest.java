@@ -21,7 +21,9 @@ import org.junit.experimental.categories.Category;
 
 import dev.schoenberg.kicker_stats.rest.HookedServer;
 import dev.schoenberg.kicker_stats.rest.ServerService;
+import kong.unirest.GetRequest;
 import kong.unirest.HttpResponse;
+import kong.unirest.RequestBodyEntity;
 import kong.unirest.Unirest;
 
 @Category({ ServerTest.class, PersistenceTest.class })
@@ -79,11 +81,14 @@ public class AcceptanceTest {
 
 	@Test
 	public void playerIsCreated() {
-		String body = "{\"name\":\"Aaron Rodgers\", \"email\":\"houdini@packers.com\"}";
-		post("/players", body);
+		String loginBody = "{\"mail\":\"admin@schoenberg.dev\", \"password\":\"pwd\"}";
+		String authValue = post("/login", loginBody);
 
-		String response = get("/players");
-		assertThat(response).isEqualTo("{\"players\":[{\"name\":\"Aaron Rodgers\",\"email\":\"houdini@packers.com\"}]}");
+		String body = "{\"name\":\"Aaron Rodgers\", \"mail\":\"houdini@packers.com\"}";
+		post("/players", body, authValue);
+
+		String response = get("/players", authValue);
+		assertThat(response).contains("{\"name\":\"Aaron Rodgers\",\"mail\":\"houdini@packers.com\"}");
 	}
 
 	private String loadResourceFile(String resourcePath) throws URISyntaxException, IOException {
@@ -92,13 +97,29 @@ public class AcceptanceTest {
 	}
 
 	private String get(String subUrl) {
-		HttpResponse<String> response = Unirest.get(baseUrl + subUrl).asString();
+		return get(subUrl, null);
+	}
+
+	private String get(String subUrl, String authValue) {
+		GetRequest request = Unirest.get(baseUrl + subUrl);
+		if (authValue != null) {
+			request = request.header(AUTHORIZATION, authValue);
+		}
+		HttpResponse<String> response = request.asString();
 		assertThat(response.getStatus()).isEqualTo(200);
 		return response.getBody();
 	}
 
 	private String post(String subUrl, String body) {
-		HttpResponse<String> response = Unirest.post(baseUrl + "/players").body(body).header(CONTENT_TYPE, APPLICATION_JSON).asString();
+		return post(subUrl, body, null);
+	}
+
+	private String post(String subUrl, String body, String authValue) {
+		RequestBodyEntity request = Unirest.post(baseUrl + subUrl).body(body).header(CONTENT_TYPE, APPLICATION_JSON);
+		if (authValue != null) {
+			request = request.header(AUTHORIZATION, authValue);
+		}
+		HttpResponse<String> response = request.asString();
 		assertThat(response.getStatus()).isLessThan(300);
 		return response.getBody();
 	}

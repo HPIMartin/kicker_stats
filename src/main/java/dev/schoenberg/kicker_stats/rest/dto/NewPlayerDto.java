@@ -8,6 +8,6 @@ public class NewPlayerDto {
 	@XmlElement(name = "name")
 	public String name;
 
-	@XmlElement(name = "email")
-	public String email;
+	@XmlElement(name = "mail")
+	public String mail;
 }
