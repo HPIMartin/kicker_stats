@@ -15,10 +15,15 @@ public class PlayerEntity extends AbstractEntity {
 	@Column(name = MAIL_COLUMN)
 	public String mail;
 
-	protected PlayerEntity() {}
+	@Column(name = "isAdmin")
+	public boolean isAdmin;
 
-	public PlayerEntity(String name, String mail) {
+	protected PlayerEntity() {
+	}
+
+	public PlayerEntity(String name, String mail, boolean isAdmin) {
 		this.name = name;
 		this.mail = mail;
+		this.isAdmin = isAdmin;
 	}
 }

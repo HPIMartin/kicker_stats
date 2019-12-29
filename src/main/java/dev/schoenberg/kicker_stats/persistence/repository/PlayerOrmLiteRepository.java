@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.*;
 
 import java.util.List;
 
+import dev.schoenberg.kicker_stats.core.domain.Admin;
 import dev.schoenberg.kicker_stats.core.domain.Player;
 import dev.schoenberg.kicker_stats.core.exception.NotFoundException;
 import dev.schoenberg.kicker_stats.core.repository.PlayerRepository;
@@ -15,7 +16,7 @@ import dev.schoenberg.kicker_stats.persistence.helper.DaoRepository;
 public class PlayerOrmLiteRepository implements PlayerRepository {
 	@Override
 	public void create(Player player) {
-		PlayerEntity entity = new PlayerEntity(player.name, player.mail);
+		PlayerEntity entity = new PlayerEntity(player.name, player.mail, player.isAdmin());
 		silentThrow(() -> DaoRepository.playerDao.create(entity));
 	}
 
@@ -32,6 +33,9 @@ public class PlayerOrmLiteRepository implements PlayerRepository {
 	}
 
 	private Player convert(PlayerEntity entity) {
+		if (entity.isAdmin) {
+			return new Admin(entity.name, entity.mail);
+		}
 		return new Player(entity.name, entity.mail);
 	}
 }

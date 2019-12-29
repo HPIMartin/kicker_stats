@@ -1,5 +1,7 @@
 package dev.schoenberg.kicker_stats.persistence;
 
+import static dev.schoenberg.kicker_stats.persistence.entity.AbstractEntity.*;
+import static dev.schoenberg.kicker_stats.persistence.entity.match.MatchTeamPlayerEntity.*;
 import static dev.schoenberg.kicker_stats.persistence.helper.DaoRepository.*;
 import static java.nio.file.Files.*;
 import static org.assertj.core.api.Assertions.*;
@@ -76,10 +78,10 @@ public class DatabaseExplorationTest {
 	}
 
 	private UUID writeMatchExample(String winningPlayer1, String winningPlayer2, String losingPlayer1, String losingPlayer2) throws SQLException {
-		PlayerEntity winner1 = playerDao.createIfNotExists(new PlayerEntity(winningPlayer1, ""));
-		PlayerEntity winner2 = playerDao.createIfNotExists(new PlayerEntity(winningPlayer2, ""));
-		PlayerEntity loser1 = playerDao.createIfNotExists(new PlayerEntity(losingPlayer1, ""));
-		PlayerEntity loser2 = playerDao.createIfNotExists(new PlayerEntity(losingPlayer2, ""));
+		PlayerEntity winner1 = playerDao.createIfNotExists(new PlayerEntity(winningPlayer1, "", false));
+		PlayerEntity winner2 = playerDao.createIfNotExists(new PlayerEntity(winningPlayer2, "", false));
+		PlayerEntity loser1 = playerDao.createIfNotExists(new PlayerEntity(losingPlayer1, "", false));
+		PlayerEntity loser2 = playerDao.createIfNotExists(new PlayerEntity(losingPlayer2, "", false));
 
 		MatchTeamEntity team1 = matchTeamDao.createIfNotExists(new MatchTeamEntity());
 		MatchTeamEntity team2 = matchTeamDao.createIfNotExists(new MatchTeamEntity());
@@ -107,11 +109,11 @@ public class DatabaseExplorationTest {
 
 	private static List<PlayerEntity> lookupPlayersForMatchTeam(MatchTeamEntity team) throws SQLException {
 		QueryBuilder<MatchTeamPlayerEntity, UUID> matchTeamPlayerQuery = matchTeamPlayerDao.queryBuilder();
-		matchTeamPlayerQuery.selectColumns(MatchTeamPlayerEntity.PLAYER_COLUMN);
-		matchTeamPlayerQuery.where().eq(MatchTeamPlayerEntity.MATCH_TEAM_COLUMN, team);
+		matchTeamPlayerQuery.selectColumns(PLAYER_COLUMN);
+		matchTeamPlayerQuery.where().eq(MATCH_TEAM_COLUMN, team);
 
 		QueryBuilder<PlayerEntity, UUID> playerQuery = playerDao.queryBuilder();
-		playerQuery.where().in(PlayerEntity.ID_COLUMN, matchTeamPlayerQuery);
+		playerQuery.where().in(ID_COLUMN, matchTeamPlayerQuery);
 		return playerQuery.query();
 	}
 }
