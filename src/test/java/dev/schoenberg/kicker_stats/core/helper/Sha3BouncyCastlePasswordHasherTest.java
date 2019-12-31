@@ -8,8 +8,6 @@ import org.junit.Test;
 import dev.schoenberg.kicker_stats.core.domain.Credentials;
 
 public class Sha3BouncyCastlePasswordHasherTest {
-	private static final String EMPTY_STRING_SHA3_HASH = "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a";
-
 	private Sha3BouncyCastlePasswordHasher tested;
 
 	@Before
@@ -23,7 +21,7 @@ public class Sha3BouncyCastlePasswordHasherTest {
 
 		String result = tested.apply(input);
 
-		assertThat(result).isEqualTo(EMPTY_STRING_SHA3_HASH);
+		assertThat(result).isEqualTo("763c38be0664691418d38f5ccde0162c9ff11fbda1b946d56476bdaa90fd13d6");
 	}
 
 	@Test
@@ -32,8 +30,7 @@ public class Sha3BouncyCastlePasswordHasherTest {
 
 		String result = tested.apply(input);
 
-		assertThat(result).hasSize(64);
-		assertThat(result).isNotEqualTo(EMPTY_STRING_SHA3_HASH);
+		assertThat(result).isEqualTo("1486ffb0ab36e1e0cf13d4702e6b3a7d88bb8be326a6370296fd16b900ede931");
 	}
 
 	@Test
@@ -42,7 +39,6 @@ public class Sha3BouncyCastlePasswordHasherTest {
 
 		String result = tested.apply(input);
 
-		assertThat(result).hasSize(64);
-		assertThat(result).isNotEqualTo(EMPTY_STRING_SHA3_HASH);
+		assertThat(result).isEqualTo("cf98880052b044aeae8a75612d44d5d0b5b33e2f89dbb100081ef95d19eaa1ba");
 	}
 }

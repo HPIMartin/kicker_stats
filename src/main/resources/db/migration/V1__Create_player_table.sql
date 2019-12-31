@@ -7,4 +7,4 @@ create table players
    isAdmin boolean NOT null
 );
 
-INSERT INTO players (id, name, mail, password, isAdmin) VALUES ("0000000-0000-0000-0000-000000000001", "Super Admin", "admin@schoenberg.dev", "28d977e1f53e5cb1250ddc22a8472bb519a6735e81fc9f28927a2465afa84d3f", true) ON CONFLICT DO NOTHING;
+INSERT INTO players (id, name, mail, password, isAdmin) VALUES ("0000000-0000-0000-0000-000000000001", "Super Admin", "admin@schoenberg.dev", "f38601176e77ab5945e54cbe71d7b18e7e8fbea024e895d427c9e1927e640037", true) ON CONFLICT DO NOTHING;

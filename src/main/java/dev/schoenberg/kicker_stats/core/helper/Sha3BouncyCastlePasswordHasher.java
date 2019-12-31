@@ -16,7 +16,7 @@ public class Sha3BouncyCastlePasswordHasher implements PasswordHasher {
 
 	private String getSaltedPassword(Credentials credentials) {
 		String salt = credentials.mail;
-		return credentials.password + salt;
+		return credentials.password + ":" + salt;
 	}
 
 	private byte[] getHash(String input) {
