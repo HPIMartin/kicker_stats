@@ -14,6 +14,8 @@ import org.flywaydb.core.Flyway;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 
+import dev.schoenberg.kicker_stats.core.PasswordHasher;
+import dev.schoenberg.kicker_stats.core.helper.Sha3BouncyCastlePasswordHasher;
 import dev.schoenberg.kicker_stats.core.helper.SimpleResourceLoader;
 import dev.schoenberg.kicker_stats.core.service.JWTAuthenticationService;
 import dev.schoenberg.kicker_stats.core.service.PlayerService;
@@ -39,7 +41,8 @@ public class Main {
 	public static String url = "jdbc:sqlite:" + System.getProperty("user.dir").replace("\\", "/") + "/kickerStats.db";
 
 	public static void main(String[] args) throws IOException, SQLException {
-		PlayerService players = new PlayerService(new PlayerOrmLiteRepository(), p -> "");
+		PasswordHasher hasher = new Sha3BouncyCastlePasswordHasher();
+		PlayerService players = new PlayerService(new PlayerOrmLiteRepository(), hasher);
 		Key key = Keys.secretKeyFor(HS512);
 		JWTAuthenticationService auth = new JWTAuthenticationService(players::getByMail, key, Instant::now);
 
