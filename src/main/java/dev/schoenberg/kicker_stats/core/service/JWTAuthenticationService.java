@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.function.Function;
 
 import dev.schoenberg.kicker_stats.core.Clock;
+import dev.schoenberg.kicker_stats.core.PasswordHasher;
+import dev.schoenberg.kicker_stats.core.domain.Credentials;
 import dev.schoenberg.kicker_stats.core.domain.Player;
 import dev.schoenberg.kicker_stats.core.exception.AuthenticationFailedException;
 import io.jsonwebtoken.JwtException;
@@ -19,15 +21,21 @@ public class JWTAuthenticationService {
 	private final Key key;
 	private final Clock clock;
 
-	public JWTAuthenticationService(Function<String, Player> mailToPlayer, Key key, Clock clock) {
+	private final PasswordHasher hasher;
+
+	public JWTAuthenticationService(Function<String, Player> mailToPlayer, PasswordHasher hasher, Key key, Clock clock) {
 		this.mailToPlayer = mailToPlayer;
+		this.hasher = hasher;
 		this.key = key;
 		this.clock = clock;
 	}
 
-	public String login(String mail, String password) {
-		Player player = mailToPlayer.apply(mail);
-		// TODO: check password
+	public String login(Credentials credentials) {
+		Player player = mailToPlayer.apply(credentials.mail);
+		String hashedPassword = hasher.apply(credentials);
+		if (!hashedPassword.equals(player.hashedPassword)) {
+			throw new AuthenticationFailedException();
+		}
 		return getNewJWT(player);
 	}
 

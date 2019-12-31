@@ -44,7 +44,7 @@ public class Main {
 		PasswordHasher hasher = new Sha3BouncyCastlePasswordHasher();
 		PlayerService players = new PlayerService(new PlayerOrmLiteRepository(), hasher);
 		Key key = Keys.secretKeyFor(HS512);
-		JWTAuthenticationService auth = new JWTAuthenticationService(players::getByMail, key, Instant::now);
+		JWTAuthenticationService auth = new JWTAuthenticationService(players::getByMail, hasher, key, Instant::now);
 
 		services.add(new CORSFilter());
 		services.add(new AuthenticationFilter(auth::checkAuth));

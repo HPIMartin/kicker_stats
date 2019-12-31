@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import dev.schoenberg.kicker_stats.core.domain.Credentials;
 import dev.schoenberg.kicker_stats.core.service.JWTAuthenticationService;
 import dev.schoenberg.kicker_stats.rest.ServerService;
 import dev.schoenberg.kicker_stats.rest.dto.LoginDto;
@@ -25,6 +26,6 @@ public class AuthenticationController implements ServerService {
 	@Consumes(APPLICATION_JSON)
 	@Produces(TEXT_PLAIN)
 	public String login(LoginDto dto) {
-		return service.login(dto.mail, dto.password);
+		return service.login(new Credentials(dto.mail, dto.password));
 	}
 }
