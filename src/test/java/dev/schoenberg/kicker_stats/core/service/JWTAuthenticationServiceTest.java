@@ -30,7 +30,7 @@ public class JWTAuthenticationServiceTest {
 	@Before
 	public void setup() {
 		time = LocalDate.of(1955, 5, 19).atStartOfDay().toInstant(UTC);
-		player = new Player("name", "foo@gmail.com");
+		player = new Player("name", "foo@gmail.com", "");
 
 		byte[] decodedKey = getDecoder().decode(KEY);
 		SecretKey key = new SecretKeySpec(decodedKey, 0, decodedKey.length, KEY_TYPE);

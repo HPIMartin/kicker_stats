@@ -16,7 +16,7 @@ import dev.schoenberg.kicker_stats.persistence.helper.DaoRepository;
 public class PlayerOrmLiteRepository implements PlayerRepository {
 	@Override
 	public void create(Player player) {
-		PlayerEntity entity = new PlayerEntity(player.name, player.mail, player.isAdmin());
+		PlayerEntity entity = new PlayerEntity(player.name, player.mail, player.hashedPassword, player.isAdmin());
 		silentThrow(() -> DaoRepository.playerDao.create(entity));
 	}
 
@@ -33,9 +33,15 @@ public class PlayerOrmLiteRepository implements PlayerRepository {
 	}
 
 	private Player convert(PlayerEntity entity) {
-		if (entity.isAdmin) {
-			return new Admin(entity.name, entity.mail);
-		}
-		return new Player(entity.name, entity.mail);
+		return construct(entity, entity.isAdmin ? Admin::new : Player::new);
+	}
+
+	private Player construct(PlayerEntity entity, PlayerConstructor constructor) {
+		return constructor.create(entity.name, entity.mail, entity.hashedPassword);
+	}
+
+	@FunctionalInterface
+	private interface PlayerConstructor {
+		Player create(String name, String mail, String hashedPwd);
 	}
 }

@@ -10,4 +10,7 @@ public class NewPlayerDto {
 
 	@XmlElement(name = "mail")
 	public String mail;
+
+	@XmlElement(name = "password")
+	public String password;
 }

@@ -13,6 +13,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import dev.schoenberg.kicker_stats.core.domain.Credentials;
+import dev.schoenberg.kicker_stats.core.domain.NewPlayer;
 import dev.schoenberg.kicker_stats.core.domain.Player;
 import dev.schoenberg.kicker_stats.core.service.PlayerService;
 import dev.schoenberg.kicker_stats.rest.ServerService;
@@ -31,8 +33,8 @@ public class PlayerController implements ServerService {
 	@POST
 	@RolesAllowed(ADMIN)
 	@Consumes(APPLICATION_JSON)
-	public void createPlayer(NewPlayerDto newPlayerDto) {
-		service.createPlayer(newPlayerDto.name, newPlayerDto.mail);
+	public void createPlayer(NewPlayerDto dto) {
+		service.createPlayer(new NewPlayer(dto.name, new Credentials(dto.mail, dto.password)));
 	}
 
 	@GET

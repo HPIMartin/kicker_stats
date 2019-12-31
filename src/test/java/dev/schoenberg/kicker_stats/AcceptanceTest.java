@@ -84,7 +84,7 @@ public class AcceptanceTest {
 		String loginBody = "{\"mail\":\"admin@schoenberg.dev\", \"password\":\"pwd\"}";
 		String authValue = post("/login", loginBody);
 
-		String body = "{\"name\":\"Aaron Rodgers\", \"mail\":\"houdini@packers.com\"}";
+		String body = "{\"name\":\"Aaron Rodgers\", \"mail\":\"houdini@packers.com\", \"hashedPassword\":\"12345\"}";
 		post("/players", body, authValue);
 
 		String response = get("/players", authValue);

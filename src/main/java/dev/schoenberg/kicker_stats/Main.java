@@ -39,7 +39,7 @@ public class Main {
 	public static String url = "jdbc:sqlite:" + System.getProperty("user.dir").replace("\\", "/") + "/kickerStats.db";
 
 	public static void main(String[] args) throws IOException, SQLException {
-		PlayerService players = new PlayerService(new PlayerOrmLiteRepository());
+		PlayerService players = new PlayerService(new PlayerOrmLiteRepository(), p -> "");
 		Key key = Keys.secretKeyFor(HS512);
 		JWTAuthenticationService auth = new JWTAuthenticationService(players::getByMail, key, Instant::now);
 

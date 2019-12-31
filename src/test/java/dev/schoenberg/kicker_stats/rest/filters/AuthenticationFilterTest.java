@@ -62,40 +62,41 @@ public class AuthenticationFilterTest {
 
 	@Test
 	public void adminRequestPermitted() throws Exception {
-		String authValue = arrangeAuth(new Admin("", ""));
+		String authValue = arrangeAuth(true);
 		int statusCode = Unirest.get("http://localhost:" + PORT + "/admin").header("Authorization", authValue).asString().getStatus();
 		assertThat(statusCode).isLessThan(300);
 	}
 
 	@Test
 	public void userRequestPermitted() throws Exception {
-		String authValue = arrangeAuth(new Player("", ""));
+		String authValue = arrangeAuth(false);
 		int statusCode = Unirest.get("http://localhost:" + PORT + "/user").header("Authorization", authValue).asString().getStatus();
 		assertThat(statusCode).isLessThan(300);
 	}
 
 	@Test
 	public void undefinedRole() throws Exception {
-		String authValue = arrangeAuth(new Player("", ""));
+		String authValue = arrangeAuth(false);
 		int statusCode = Unirest.get("http://localhost:" + PORT + "/undefined").header("Authorization", authValue).asString().getStatus();
 		assertThat(statusCode).isEqualTo(401);
 	}
 
 	@Test
 	public void multipleRoles() throws Exception {
-		String authValue = arrangeAuth(new Player("", ""));
+		String authValue = arrangeAuth(false);
 		int statusCode = Unirest.get("http://localhost:" + PORT + "/multiple").header("Authorization", authValue).asString().getStatus();
 		assertThat(statusCode).isEqualTo(401);
 	}
 
 	@Test
 	public void nonAdminRequestDenied() throws Exception {
-		String authValue = arrangeAuth(new Player("", ""));
+		String authValue = arrangeAuth(false);
 		int statusCode = Unirest.get("http://localhost:" + PORT + "/admin").header("Authorization", authValue).asString().getStatus();
 		assertThat(statusCode).isEqualTo(401);
 	}
 
-	private static String arrangeAuth(Player player) {
+	private String arrangeAuth(boolean admin) {
+		Player player = admin ? new Admin("", "", "") : new Player("", "", "");
 		AuthenticationFilterTest.player = player;
 		return player.toString();
 	}
