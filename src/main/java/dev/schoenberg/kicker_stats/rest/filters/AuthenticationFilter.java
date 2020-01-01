@@ -15,6 +15,7 @@ import java.util.function.Function;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ResourceInfo;
@@ -37,6 +38,10 @@ public class AuthenticationFilter implements ContainerRequestFilter, ServerServi
 		Method method = resourceInfo.getResourceMethod();
 
 		if (method.isAnnotationPresent(PermitAll.class)) {
+			return;
+		}
+
+		if (HttpMethod.OPTIONS.equals(requestContext.getMethod())) {
 			return;
 		}
 

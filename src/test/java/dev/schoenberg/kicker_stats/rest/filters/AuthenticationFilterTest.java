@@ -55,6 +55,12 @@ public class AuthenticationFilterTest {
 	}
 
 	@Test
+	public void allowsOptionRequests() {
+		int statusCode = Unirest.options("http://localhost:" + PORT + "/denyAll").asString().getStatus();
+		assertThat(statusCode).isLessThan(300);
+	}
+
+	@Test
 	public void missingAuthParameter() throws Exception {
 		int statusCode = Unirest.get("http://localhost:" + PORT + "/user").asString().getStatus();
 		assertThat(statusCode).isEqualTo(401);
