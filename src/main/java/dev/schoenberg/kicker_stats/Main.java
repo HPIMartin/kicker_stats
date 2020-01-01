@@ -17,6 +17,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import dev.schoenberg.kicker_stats.core.PasswordHasher;
 import dev.schoenberg.kicker_stats.core.helper.Sha3BouncyCastlePasswordHasher;
 import dev.schoenberg.kicker_stats.core.helper.SimpleResourceLoader;
+import dev.schoenberg.kicker_stats.core.helper.logger.SystemOutLogger;
 import dev.schoenberg.kicker_stats.core.service.JWTAuthenticationService;
 import dev.schoenberg.kicker_stats.core.service.PlayerService;
 import dev.schoenberg.kicker_stats.persistence.helper.DaoRepository;
@@ -31,6 +32,7 @@ import dev.schoenberg.kicker_stats.rest.exceptionMapper.AuthenticationFailedExce
 import dev.schoenberg.kicker_stats.rest.exceptionMapper.NotFoundExceptionWrapper;
 import dev.schoenberg.kicker_stats.rest.filters.AuthenticationFilter;
 import dev.schoenberg.kicker_stats.rest.filters.CORSFilter;
+import dev.schoenberg.kicker_stats.rest.filters.RequestLoggingFilter;
 import io.jsonwebtoken.security.Keys;
 
 public class Main {
@@ -43,6 +45,7 @@ public class Main {
 	public static void main(String[] args) throws IOException, SQLException {
 		PasswordHasher hasher = new Sha3BouncyCastlePasswordHasher();
 		PlayerService players = new PlayerService(new PlayerOrmLiteRepository(), hasher);
+		SystemOutLogger logger = new SystemOutLogger();
 		Key key = Keys.secretKeyFor(HS512);
 		JWTAuthenticationService auth = new JWTAuthenticationService(players::getByMail, hasher, key, Instant::now);
 
@@ -51,6 +54,7 @@ public class Main {
 
 		services.add(new NotFoundExceptionWrapper());
 		services.add(new AuthenticationFailedExceptionWrapper());
+		services.add(new RequestLoggingFilter(logger));
 
 		services.add(new AuthenticationController(auth));
 		services.add(new VersionController());
