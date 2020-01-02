@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
-import dev.schoenberg.kicker_stats.core.mail.Mailer.Mail;
+import dev.schoenberg.kicker_stats.core.Mailer.Mail;
 
 public class SimpleMailMailerTest {
 	private static final int NONSTANDARD_PORT = 13370;
@@ -30,7 +30,7 @@ public class SimpleMailMailerTest {
 
 	@Test
 	public void sendMail() {
-		Mail mail = new Mail("", "test@test.de", "");
+		Mail mail = new Mail("", "test@test.de", "", "");
 
 		tested.send(mail);
 

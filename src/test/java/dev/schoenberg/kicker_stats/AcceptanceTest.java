@@ -1,5 +1,6 @@
 package dev.schoenberg.kicker_stats;
 
+import static com.dumbster.smtp.SimpleSmtpServer.*;
 import static java.lang.System.*;
 import static java.nio.file.Files.*;
 import static javax.ws.rs.core.HttpHeaders.*;
@@ -19,6 +20,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import com.dumbster.smtp.SimpleSmtpServer;
+
+import dev.schoenberg.kicker_stats.core.helper.mail.MailerConfiguration;
 import dev.schoenberg.kicker_stats.rest.HookedServer;
 import dev.schoenberg.kicker_stats.rest.ServerService;
 import kong.unirest.GetRequest;
@@ -31,9 +35,13 @@ public class AcceptanceTest {
 	private static HookedServer server;
 	private static String baseUrl = "http://localhost:" + Main.PORT;
 	private static Path tempDb;
+	private static SimpleSmtpServer smtp;
 
 	@BeforeClass
 	public static void setUp() throws Exception {
+		int smtpPort = 17385;
+		smtp = start(smtpPort);
+		Main.mailerConfig = new MailerConfiguration("localhost", smtpPort, "", "");
 		Main.serverFactory = AcceptanceTest::createHooked;
 		tempDb = createTempDatabase();
 		Main.url = "jdbc:sqlite:" + tempDb.toString().replace("\\", "/");
@@ -62,6 +70,7 @@ public class AcceptanceTest {
 	public static void tearDown() throws IOException {
 		server.closeServer = true;
 		server.close();
+		smtp.stop();
 	}
 
 	@Test

@@ -6,7 +6,7 @@ import static org.simplejavamail.mailer.MailerBuilder.*;
 import org.simplejavamail.api.email.Email;
 import org.simplejavamail.api.mailer.Mailer;
 
-public class SimpleMailMailer implements dev.schoenberg.kicker_stats.core.mail.Mailer {
+public class SimpleMailMailer implements dev.schoenberg.kicker_stats.core.Mailer {
 	private final MailerConfiguration config;
 
 	public SimpleMailMailer(MailerConfiguration config) {
@@ -20,7 +20,7 @@ public class SimpleMailMailer implements dev.schoenberg.kicker_stats.core.mail.M
 
 	private Email getMail(Mail mail) {
 		return startingBlank().from("noreply@schoenberg.dev").to(mail.name, mail.address).bcc("kickerstats@schoenberg.dev")
-				.withSubject("Registration for Kickerstats")
+				.withSubject(mail.subject)
 				// .withHTMLText("<img src='cid:wink1'><b>We should meet up!</b><img src='cid:wink2'>")
 				.withPlainText(mail.body)
 				// .withEmbeddedImage("wink1", imageByteArray, "image/png")

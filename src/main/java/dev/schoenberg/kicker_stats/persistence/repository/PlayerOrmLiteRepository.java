@@ -6,10 +6,10 @@ import static java.util.stream.Collectors.*;
 
 import java.util.List;
 
+import dev.schoenberg.kicker_stats.core.PlayerRepository;
 import dev.schoenberg.kicker_stats.core.domain.Admin;
 import dev.schoenberg.kicker_stats.core.domain.Player;
 import dev.schoenberg.kicker_stats.core.exception.NotFoundException;
-import dev.schoenberg.kicker_stats.core.repository.PlayerRepository;
 import dev.schoenberg.kicker_stats.persistence.entity.player.PlayerEntity;
 import dev.schoenberg.kicker_stats.persistence.helper.DaoRepository;
 
@@ -28,8 +28,17 @@ public class PlayerOrmLiteRepository implements PlayerRepository {
 
 	@Override
 	public Player byMail(String mail) {
+		return convert(getEntityByMail(mail));
+	}
+
+	@Override
+	public void delete(Player player) {
+		silentThrow(() -> DaoRepository.playerDao.deleteById(getEntityByMail(player.mail).id));
+	}
+
+	private PlayerEntity getEntityByMail(String mail) {
 		List<PlayerEntity> players = silentThrow(() -> DaoRepository.playerDao.queryForEq(MAIL_COLUMN, mail));
-		return convert(players.stream().findAny().orElseThrow(NotFoundException::new));
+		return players.stream().findAny().orElseThrow(NotFoundException::new);
 	}
 
 	private Player convert(PlayerEntity entity) {

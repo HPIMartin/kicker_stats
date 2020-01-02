@@ -18,6 +18,8 @@ import dev.schoenberg.kicker_stats.core.PasswordHasher;
 import dev.schoenberg.kicker_stats.core.helper.Sha3BouncyCastlePasswordHasher;
 import dev.schoenberg.kicker_stats.core.helper.SimpleResourceLoader;
 import dev.schoenberg.kicker_stats.core.helper.logger.SystemOutLogger;
+import dev.schoenberg.kicker_stats.core.helper.mail.MailerConfiguration;
+import dev.schoenberg.kicker_stats.core.helper.mail.SimpleMailMailer;
 import dev.schoenberg.kicker_stats.core.service.JWTAuthenticationService;
 import dev.schoenberg.kicker_stats.core.service.PlayerService;
 import dev.schoenberg.kicker_stats.persistence.helper.DaoRepository;
@@ -41,10 +43,12 @@ public class Main {
 	public static ServerFactory serverFactory = JettyServer::new;
 	public static int PORT = 8080;
 	public static String url = "jdbc:sqlite:" + System.getProperty("user.dir").replace("\\", "/") + "/kickerStats.db";
+	public static MailerConfiguration mailerConfig = new MailerConfiguration("", 1337, "", "");
 
 	public static void main(String[] args) throws IOException, SQLException {
 		PasswordHasher hasher = new Sha3BouncyCastlePasswordHasher();
-		PlayerService players = new PlayerService(new PlayerOrmLiteRepository(), hasher);
+		SimpleMailMailer mailer = new SimpleMailMailer(mailerConfig);
+		PlayerService players = new PlayerService(new PlayerOrmLiteRepository(), hasher, mailer);
 		SystemOutLogger logger = new SystemOutLogger();
 		Key key = Keys.secretKeyFor(HS512);
 		JWTAuthenticationService auth = new JWTAuthenticationService(players::getByMail, hasher, key, Instant::now);
