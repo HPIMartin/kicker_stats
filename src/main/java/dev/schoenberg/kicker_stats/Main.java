@@ -43,7 +43,7 @@ public class Main {
 	public static ServerFactory serverFactory = JettyServer::new;
 	public static int PORT = 8080;
 	public static String url = "jdbc:sqlite:" + System.getProperty("user.dir").replace("\\", "/") + "/kickerStats.db";
-	public static MailerConfiguration mailerConfig = new MailerConfiguration("", 1337, "", "");
+	public static MailerConfiguration mailerConfig = new MailerConfiguration("smtps.udag.de", 587, "schoenberg-dev-0001", "top_secret");
 
 	public static void main(String[] args) throws IOException, SQLException {
 		PasswordHasher hasher = new Sha3BouncyCastlePasswordHasher();
