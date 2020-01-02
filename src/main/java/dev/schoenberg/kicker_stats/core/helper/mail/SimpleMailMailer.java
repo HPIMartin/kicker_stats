@@ -19,8 +19,7 @@ public class SimpleMailMailer implements dev.schoenberg.kicker_stats.core.Mailer
 	}
 
 	private Email getMail(Mail mail) {
-		return startingBlank().from("noreply@schoenberg.dev").to(mail.name, mail.address).bcc("kickerstats@schoenberg.dev")
-				.withSubject(mail.subject)
+		return startingBlank().from("noreply@schoenberg.dev").to(mail.name, mail.address).bcc("kickerstats@schoenberg.dev").withSubject(mail.subject)
 				// .withHTMLText("<img src='cid:wink1'><b>We should meet up!</b><img src='cid:wink2'>")
 				.withPlainText(mail.body)
 				// .withEmbeddedImage("wink1", imageByteArray, "image/png")
@@ -30,7 +29,7 @@ public class SimpleMailMailer implements dev.schoenberg.kicker_stats.core.Mailer
 
 	private Mailer getMailer() {
 		return withSMTPServer(config.url, config.port, config.user, config.password)
-				// .withTransportStrategy(SMTP_TLS)
+				// .withTransportStrategy(TransportStrategy.SMTP_TLS)
 				.withDebugLogging(true).buildMailer();
 	}
 }
